@@ -95,9 +95,10 @@ push, then loop a code review of the PR until it is clean, and merge if asked.
     why, give them your recommendation, and merge only once they approve.
 
     d. Wait for any CI checks on the PR (`gh pr checks <number> --watch`). If
-    they pass, or there are none,
-    `gh pr merge <number> --squash --delete-branch`, subject to 6c. If tests
-    fail, and they can be fixed, fix them and return to step 4.
+    any fail and can be fixed, fix them and return to step 4. If they pass, or
+    there are none, merge subject to 6c with
+    `gh pr merge <number> --squash --delete-branch --subject <s> --body <b>`,
+    writing the message as Rules describes.
 
 7.  Inform the user that you have finished, and report the assumptions you made
     and anything still needing their attention. If any issues were discovered
@@ -124,3 +125,7 @@ push, then loop a code review of the PR until it is clean, and merge if asked.
 
 - Merge only where the user's instructions allow it. A repo whose PRs need an
   approving review first is merged by its people, not by this skill.
+
+- The squash merge commit message (6d) is tightly worded: what changed and why,
+  with user-facing changes first and technical detail after. Leave out the
+  review-loop notes from 5b; they stay in the PR description.
