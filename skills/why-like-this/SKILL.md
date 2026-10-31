@@ -2,10 +2,10 @@
 name: why-like-this
 description: >-
   Trace a behaviour the user questions back to the instruction wording that
-  produced it, and reword that instruction so the next run does what they
-  meant. Use when the user asks why you did something ("why did you stop?",
-  "by what instruction…?"), before saving a feedback memory, or when invoked
-  as /why-like-this.
+  produced it, and reword that instruction so the next run does what they meant.
+  Use when the user asks why you did something ("why did you stop?", "by what
+  instruction…?"), before saving a feedback memory, or when invoked as
+  /why-like-this.
 ---
 
 # Why like this
@@ -41,12 +41,16 @@ makes the next run do what they meant.
 3. **Propose the lever.** Edit the one place that is the source of truth for
    that behaviour: reword before adding, phrase the target positively, and
    prefer a precise leading word over a sentence. A memory is a lever too;
-   choose it only when no skill, CLAUDE.md or AGENTS.md line owns the
-   behaviour. A breach always needs a lever, even of a rule you can't edit:
-   find why the rule didn't bind in that moment (out of view, or outweighed by
-   a motive) and put wording where that moment will see it, in CLAUDE.md, a
-   skill, or a memory. Show the proposed wording and say which cause from step
-   2 it removes.
+   choose it only when no skill, CLAUDE.md or AGENTS.md line owns the behaviour.
+   A breach needs a lever even when the rule is one you can't edit: find why the
+   rule didn't bind in that moment (out of view, or outweighed by a motive) and
+   put wording where that moment will see it, in CLAUDE.md, a skill, or a
+   memory. Show the proposed wording and say which cause from step 2 it removes.
+
+   Changing nothing is a proposal too, when the wording would cost more than the
+   slip: say why the slip is unlikely to recur, or what the wording would cost,
+   and let the user decide. That a rule already exists is not such a reason; a
+   rule that didn't bind will fail again.
 
 4. **Apply it once the user agrees.** Make the edit, leaving any commit or push
    to the user's word. Then go back to the work that raised the question and
