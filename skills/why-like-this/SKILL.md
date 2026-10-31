@@ -42,8 +42,11 @@ makes the next run do what they meant.
    that behaviour: reword before adding, phrase the target positively, and
    prefer a precise leading word over a sentence. A memory is a lever too;
    choose it only when no skill, CLAUDE.md or AGENTS.md line owns the
-   behaviour. Show the proposed wording and say which cause from step 2 it
-   removes.
+   behaviour. A breach always needs a lever, even of a rule you can't edit:
+   find why the rule didn't bind in that moment (out of view, or outweighed by
+   a motive) and put wording where that moment will see it, in CLAUDE.md, a
+   skill, or a memory. Show the proposed wording and say which cause from step
+   2 it removes.
 
 4. **Apply it once the user agrees.** Make the edit, leaving any commit or push
    to the user's word. Then go back to the work that raised the question and
