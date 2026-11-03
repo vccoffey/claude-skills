@@ -42,16 +42,27 @@ push, then loop a code review of the PR until it is clean, and merge if asked.
 
     b. If gpush exits zero, continue to the next step. Otherwise, read the
     failures from its output. If anything requires a decision by the user, break
-    the local loop and return to step 1 (remembering prior decisions).
+    the local loop and return to step 1 (remembering prior decisions). If you or
+    the user edited files or committed while it ran, check with the user before
+    acting on its failures.
 
-    c. Handle each failure as the gpush skill's "When a check fails" section
-    says.
+    c. Pass only the AI review findings (`claude code review`,
+    `claude security review`) to the review-findings skill, and act on its
+    classes as 5e says. Fix the class, not the instance: fix each finding
+    together with its siblings. If an AI review exits 2 or 3 (tooling failed, no
+    verdict), retry once, then surface it. Fix every other failing check
+    (linters, tests) directly: `gpush fix` first for formatting and lint,
+    `gpush run <name>` to re-run one check. Never edit `gpushrc.yml` to weaken a
+    check. Leave failures that predate this work, but report them.
 
     d. Make the fixes on your own. If your code is correct and the instructions
     in the gpush output should not be followed, document the reasons in the
-    commit message. While the branch is unpushed, amend the commit with every
-    fix; once it has been pushed, add each fix as a new commit. Commit before
-    every pass: gpush runs on committed work only.
+    commit message. Before every gpush round, fold each fix into the unpushed
+    commit it belongs to (amend, or a fixup commit and autosquash rebase). Never
+    rewrite pushed commits: a fix to one is a new commit. Collect every finding
+    from a pass, fix them all, run the affected spec files, then commit and run
+    gpush once: one gpush and one review per round, not one per finding. gpush
+    runs on committed work only.
 
 5.  PR loop, if part of the initial instructions.
 
@@ -63,22 +74,23 @@ push, then loop a code review of the PR until it is clean, and merge if asked.
     the commit message (amend while unpushed, else in the next fix commit): the
     gpush review sees commit messages but never the PR description.
 
-    c. Review the PR with the code-review skill (`PR <number>`). Use the default
-    effort unless instructed otherwise.
+    c. Review the PR with the review-findings skill (`PR <number>`).
 
     d. Reject fixes that add undue complexity to address issues that cannot or
     likely will not arise; make sure such cases are reported well instead.
     Record each finding you disagree with, or the user has decided against, as
     5b says.
 
-    e. A review counts as clean when it returns only edge-case nits, or issues
-    already on the base branch that aren't straightforward to fix. Never treat
-    these as nits: data loss or corruption, a crash or error page on input a
-    user can produce in normal use, a security issue, or a deploy-time breakage.
-    A crash only deliberately crafted input reaches, with no data at risk, falls
-    under 5d when only signed-in users can send that input; on a page the public
-    can reach, treat it as a security issue. The PR is ready when it improves
-    the codebase overall and breaks nothing that works on the base branch.
+    e. Act on each finding by its review-findings class:
+    - **critical** and **bug**: fix it, subject to 5d and the stalemate rule.
+    - **nit**: fix it when cheap (a few lines, no design change); otherwise
+      record it (5b).
+    - **future**: leave it; list it in the PR description as a possible
+      follow-up, with its reason.
+
+    A review counts as clean when only unfixed nits and future findings remain.
+    The PR is ready when it improves the codebase overall and breaks nothing
+    that works on the base branch.
 
     f. If the review raises issues that should be fixed, fix them and return to
     step 4. If it is clean, continue to the next step.
@@ -101,19 +113,23 @@ push, then loop a code review of the PR until it is clean, and merge if asked.
     writing the message as Rules describes.
 
 7.  Inform the user that you have finished, and report the assumptions you made
-    and anything still needing their attention. If any issues were discovered
-    that were out of scope for this PR but warrant attention, propose one or
-    more follow-up PRs.
+    and anything still needing their attention. If the reviews found future
+    findings that warrant attention, propose one or more follow-up PRs.
 
 ## Rules
 
-- A finding is **stalemated** when it survives two passes despite your
+- A finding raised again after you recorded it costs a whole cycle every time it
+  returns. If it is cheap to fix (a few lines, no design change), fix it rather
+  than record it again. Only a finding that is costly, wrong, or contrary to a
+  user decision becomes **stalemated** when it survives two passes despite your
   justification, or when a pass only reverses what the previous one asked for.
   The gpush claude review is non-deterministic and may not honour a
   justification. Stop arguing a stalemated finding: record it with your
   reasoning (5b) and keep looping on everything else. A pass that finds new real
   defects is progress, not a stall; fix them. Leave the loop only when nothing
   is left but stalemates and nits, then surface the stalemates to the user.
+
+- Aim for the first full review to come back clean.
 
 - If the fixes keep widening the scope beyond the task agreed in step 1, that is
   a decision for the user (step 4b). Ask, after fixing the defects that are
