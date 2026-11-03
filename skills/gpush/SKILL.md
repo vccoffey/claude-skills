@@ -25,15 +25,13 @@ Run the following command, modified if the user requests different arguments
 with `caffeinate -ims` (idle, disk and system sleep; the display may still
 sleep), and interrupts gpush with SIGINT if it is still running after an hour, a
 second SIGINT 30s later if needed, so a hung run never keeps the machine awake
-indefinitely. A normal run takes 10–15 minutes. Set `GPUSH_TIMEOUT` (seconds)
-for a longer limit. A timed-out run prints
-`gpush still running after …s: interrupting it` and exits 1; report it as a
-hang, not a check failure.
+indefinitely. Set `GPUSH_TIMEOUT` (seconds) for a longer limit. A timed-out run
+prints `gpush still running after …s: interrupting it` and exits 1; report it as
+a hang, not a check failure.
 
-- **Always `run_in_background: true`, and never pipe it** (`| tail`, `| grep`).
-  A full run takes minutes and can exceed the foreground timeout. The background
-  task already captures the full output, and a pipe masks gpush's exit code with
-  the last command's (`gpush … | tail -60` reports 0 on tail).
+- **Always `run_in_background: true`; never pipe it** (`| tail`, `| grep`): a
+  pipe reports the last command's exit code, not gpush's. The background task
+  already keeps the full output.
 - **`--no-spinner`** — the live spinner is noise in captured output.
 - **Don't skip:** never use suggest --skip on your own. Follow the user's
   instructions, but do not store any memory of it beyond the session.
