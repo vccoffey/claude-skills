@@ -96,22 +96,17 @@ push, then loop a code review of the PR until it is clean, and merge if asked.
     f. If the review raises issues that should be fixed, fix them and return to
     step 4. If it is clean, continue to the next step.
 
-6.  PR Processing, if part of the initial instructions.
+6.  Merge, if part of the initial instructions.
 
-    a. If the PR is a draft, mark it ready for review.
-
-    b. If the PR has conflicts with its base, merge the base in and return to
+    a. If the PR has conflicts with its base, merge the base in and return to
     step 4.
 
-    c. If the PR loop ended with findings skipped as nits (step 5e), it is not
+    b. If the PR loop ended with findings skipped as nits (step 5e), it is not
     merged automatically: explain to the user which findings you skipped and
     why, give them your recommendation, and merge only once they approve.
 
-    d. Wait for any CI checks on the PR (`gh pr checks <number> --watch`). If
-    any fail and can be fixed, fix them and return to step 4. If they pass, or
-    there are none, merge subject to 6c with
-    `gh pr merge <number> --squash --delete-branch --subject <s> --body <b>`,
-    writing the message as Rules describes.
+    c. Run the merge-pr skill. If it stops on failing CI checks that can be
+    fixed, fix them and return to step 4.
 
 7.  Inform the user that you have finished, and report the assumptions you made
     and anything still needing their attention. If the reviews found future
@@ -139,10 +134,3 @@ push, then loop a code review of the PR until it is clean, and merge if asked.
 - As part of step 3, you may run targeted tests (eg rspec or jest), but do not
   run the entire test suite. Instead, move on to the gpush loop; the gpush
   command will run tests.
-
-- Merge only where the user's instructions allow it. A repo whose PRs need an
-  approving review first is merged by its people, not by this skill.
-
-- The squash merge commit message (6d) is tightly worded: what changed and why,
-  with user-facing changes first and technical detail after. Leave out the
-  review-loop notes from 5b; they stay in the PR description.
