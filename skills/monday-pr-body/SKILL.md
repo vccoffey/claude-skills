@@ -17,9 +17,8 @@ description:
 # Body: opening section
 
 The body opens with this section, for the tester and release planner. Plain
-language: no file, component, CSS or code names, no merge risk. Any other
-PR-body format (e.g. the `pr` skill's Summary / Evidence / Merge Danger) follows
-after a `---`.
+language: no file, component, CSS or code names, no merge risk. The rest of the
+body, in whatever format the repo or another skill uses, follows after a `---`.
 
 ```markdown
 ## Testing & Release
