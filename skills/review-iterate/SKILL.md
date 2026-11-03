@@ -35,14 +35,15 @@ push, then loop a code review of the PR until it is clean, and merge if asked.
       detailed explanation of the code changes and their purpose. Document
       anything unusual in the git commit message.
 
-4.  Local loop. Repeat the following as many times as necessary.
+4.  gpush loop. Repeat the following as many times as necessary.
 
-    a. Execute the gpush skill, with `--dry-run` unless the work ends in a push,
-    and read the exit code from the tool result.
+    a. Execute the gpush skill. If the work ends in a push or a PR (step 1), run
+    it to push from the first round; use `--dry-run` only when the work ends at
+    a local pass. Read the exit code from the tool result.
 
     b. If gpush exits zero, continue to the next step. Otherwise, read the
     failures from its output. If anything requires a decision by the user, break
-    the local loop and return to step 1 (remembering prior decisions). If you or
+    the gpush loop and return to step 1 (remembering prior decisions). If you or
     the user edited files or committed while it ran, check with the user before
     acting on its failures.
 
@@ -136,7 +137,7 @@ push, then loop a code review of the PR until it is clean, and merge if asked.
   inside the agreed scope.
 
 - As part of step 3, you may run targeted tests (eg rspec or jest), but do not
-  run the entire test suite. Instead, move on to the local loop; the gpush
+  run the entire test suite. Instead, move on to the gpush loop; the gpush
   command will run tests.
 
 - Merge only where the user's instructions allow it. A repo whose PRs need an
