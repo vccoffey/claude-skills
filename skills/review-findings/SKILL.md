@@ -20,10 +20,12 @@ working tree untouched.
 
 ## Steps
 
-1.  **Gather.** Run `/code-review` at `high` on the target, unless the findings
-    handed in already come from a code review (gpush `claude code review`).
-    Security review findings alone don't count: run the review and add them to
-    its findings.
+1.  **Gather.** Unless the findings handed in already come from a code review
+    (gpush `claude code review`), invoke the `code-review` skill with arguments
+    `high <target>`. Its output is the starting list for step 2; review the diff
+    yourself only through steps 2–4, never in place of `code-review`. Security
+    review findings alone don't count: run the review and add them to its
+    findings.
 
 2.  **Check.** For each finding, read the code it names and its surroundings.
     Keep it only if you can state how it goes wrong; drop the rest. Drop
