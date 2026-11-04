@@ -42,10 +42,14 @@ makes the next run do what they meant.
    that behaviour: reword before adding, phrase the target positively, and
    prefer a precise leading word over a sentence. A memory is a lever too;
    choose it only when no skill, CLAUDE.md or AGENTS.md line owns the behaviour.
-   A breach needs a lever even when the rule is one you can't edit: find why the
-   rule didn't bind in that moment (out of view, or outweighed by a motive) and
-   put wording where that moment will see it, in CLAUDE.md, a skill, or a
-   memory. Show the proposed wording and say which cause from step 2 it removes.
+   A hook or other setting (a permission rule, say) is a lever too; choose it
+   when the harness can catch or prevent the slip mechanically, so enforcement
+   doesn't rest on your memory of a rule. A breach needs a lever even when the
+   rule is one you can't edit: find why the rule didn't bind in that moment (out
+   of view, or outweighed by a motive) and put wording where that moment will
+   see it, in CLAUDE.md, a skill, or a memory, or enforce it with a hook or
+   setting. Show the proposed wording or config and say which cause from step 2
+   it removes.
 
    Changing nothing is a proposal too, when the wording would cost more than the
    slip: say why the slip is unlikely to recur, or what the wording would cost,
