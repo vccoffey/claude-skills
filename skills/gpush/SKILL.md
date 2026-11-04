@@ -29,9 +29,7 @@ indefinitely. Set `GPUSH_TIMEOUT` (seconds) for a longer limit. A timed-out run
 prints `gpush still running after …s: interrupting it` and exits 1; report it as
 a hang, not a check failure.
 
-- **Always `run_in_background: true`; never pipe it** (`| tail`, `| grep`): a
-  pipe reports the last command's exit code, not gpush's. The background task
-  already keeps the full output.
+- **Always `run_in_background: true`; never pipe it** (`| tail`, `| grep`).
 - **`--no-spinner`** — the live spinner is noise in captured output.
 - **Don't skip:** never use suggest --skip on your own. Follow the user's
   instructions, but do not store any memory of it beyond the session.

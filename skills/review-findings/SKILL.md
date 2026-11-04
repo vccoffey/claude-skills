@@ -29,7 +29,9 @@ working tree untouched.
 
 2.  **Check.** For each finding, read the code it names and its surroundings.
     Keep it only if you can state how it goes wrong; drop the rest. Drop
-    findings on ignored files.
+    findings on ignored files. For a PR, also read its comments, review threads
+    and commit messages. Where they differ from the description, the latest word
+    from the author or a reviewer is the spec: drop findings it settles.
 
 3.  **Siblings.** For each kept finding, search the change for the same problem
     elsewhere (the same check in another action, the same pattern in another
