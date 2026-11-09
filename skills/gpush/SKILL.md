@@ -51,11 +51,11 @@ a hang, not a check failure.
 - **`-v` / `--verbose`** streams every command's output instead of printing it
   only on failure. Default is quieter and usually enough — the failing command's
   output is shown either way.
-- **`--worktree`** may be added to the command optionally. Pass it when the
-  repo's `gpushrc.yml` sets `worktree: true`, or when the user asks. If running
-  in worktree mode, you can continue to edit files in the main directory and
-  make new commits while gpush is running, but avoid running rspec until the
-  gpush rspec has completed.
+- **worktree mode** may be set by `gpushrc.yml` `worktree: true` or with the
+  flag `--worktree`; pass it only when the user asks. Once gpush prints
+  `Running in worktree: <path>` near the top of its output, the main directory
+  is free: gpush tests and pushes the commit HEAD pointed at on launch, to the
+  branch named then, so edit, commit, stash and switch branches meanwhile.
 
 ## Stopping a run
 
