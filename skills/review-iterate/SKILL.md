@@ -9,14 +9,19 @@ disable-model-invocation: true
 Take a task from a shared understanding of what to build through to a commit
 that passes every pre-push check. Interview first, implement autonomously, then
 loop gpush and fix what it reports until it passes. If the user asked for it,
-push, then loop a code review of the PR until it is clean, and merge if asked.
+push, then loop a code review of the PR until it is clean, then mark it ready
+for review or merge it if asked.
 
 ## Workflow
 
 1.  Depending when this skill was invoked, this step may or may not be already
     complete. Reach a shared understanding of the task with
-    /questions-one-at-a-time, including whether the work ends at a local pass
-    only (gpush `--dry-run`), a push, or a reviewed and merged PR.
+    /questions-one-at-a-time, including where the work ends:
+    - a local pass only (gpush `--dry-run`)
+    - a push
+    - a reviewed draft PR
+    - a reviewed PR marked ready for review
+    - a reviewed and merged PR
 
 2.  Determine that you have everything needed to complete your task.
     - Permission to make and amend git commits, and any ruby gems and npm
@@ -95,6 +100,10 @@ push, then loop a code review of the PR until it is clean, and merge if asked.
 
     f. If the review raises issues that should be fixed, fix them and return to
     step 4. If it is clean, continue to the next step.
+
+    g. If the work ends at a PR ready for review, or at a merge, mark it ready
+    (`gh pr ready <number>`). Don't request reviewers unless the user names
+    them.
 
 6.  Merge, if part of the initial instructions.
 
