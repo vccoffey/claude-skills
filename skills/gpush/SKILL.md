@@ -63,17 +63,20 @@ If a run has to be stopped, interrupt it gracefully with SIGINT, the same signal
 as Ctrl-C. Do **not** use TaskStop. TaskStop sends SIGTERM and then force-kills,
 which skips `post_run` and can leave a worktree behind in `$TMPDIR`.
 
-1. Find gpush's own process, the `ruby …/gpush.rb` under `run-gpush.sh`:
-   `ps -o pid,lstart,command -p "$(pgrep -d, -f 'gpush\.rb')"`. Other sessions
-   may be running gpush too. Pick the one you launched by its start time and
-   arguments. If more than one could be yours, ask rather than guess. Never
-   `pkill -f gpush`.
-2. `kill -INT <pid>`. gpush interrupts each check, prints the summary with
-   `《 Interruption detected 》`, runs `post_run` and `post_run_failure`,
-   removes its worktree, and exits 1. The task's completion notification
-   follows.
-3. If it is still running ~30s later (a check ignoring SIGINT), send
-   `kill -INT <pid>` once more. That force-quits and still removes the worktree.
+1. Take the wrapper's pid from the first line of that run's own output,
+   `run-gpush.sh pid <pid>`. Read it from the output of the run you launched,
+   never from a process list: other runs, yours or other sessions', look the
+   same there.
+2. `~/.claude/skills/gpush/stop-gpush.sh <pid>`. It follows only that wrapper's
+   child processes to its `gpush.rb` and sends SIGINT, and refuses a pid that
+   isn't a running `run-gpush.sh`. gpush interrupts each check, prints the
+   summary with `《 Interruption detected 》`, runs `post_run` and
+   `post_run_failure`, removes its worktree, and exits 1. The task's completion
+   notification follows.
+3. If it is still running ~30s later (a check ignoring SIGINT), run the same
+   command once more. That force-quits and still removes the worktree.
+
+Never `kill` or `pkill` gpush yourself.
 
 ## Exit codes
 

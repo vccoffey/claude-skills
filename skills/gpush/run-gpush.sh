@@ -5,6 +5,8 @@
 set -u
 timeout=${GPUSH_TIMEOUT:-3600}
 
+echo "run-gpush.sh pid $$"
+
 caffeinate -ims -w $$ &
 
 # SIGINT, as Ctrl-C would: gpush stops its checks, runs post_run and removes
