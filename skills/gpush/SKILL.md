@@ -31,8 +31,8 @@ a hang, not a check failure.
 
 - **Always `run_in_background: true`; never pipe it** (`| tail`, `| grep`).
 - **`--no-spinner`** — the live spinner is noise in captured output.
-- **Don't skip:** never use suggest --skip on your own. Follow the user's
-  instructions, but do not store any memory of it beyond the session.
+- **Don't skip:** never pass `--skip` on your own. Use it only when the user
+  asks, and don't save that request to memory.
 - **`-u` / `--set-upstream`** — pass it. gpush's prompts read single keypresses,
   so with no terminal it takes each question's default, and the one question
   with no default ("No remote branch set. Create branch on origin if tests
